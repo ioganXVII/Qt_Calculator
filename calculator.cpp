@@ -1,6 +1,5 @@
 #include "calculator.h"
 #include "ui_calculator.h"
-
 double calcVal = 0.0;
 bool divTrigger = false;
 bool multTrigger = false;
@@ -43,7 +42,7 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->Clear, SIGNAL(released()), this,
             SLOT(ClearPressed()));
 
-
+    isNewCalculation = false;
 
 }
 
@@ -56,7 +55,12 @@ Calculator::~Calculator()
 void Calculator::NumPressed(){
     QPushButton *button = (QPushButton *)sender();
     QString butVal = button->text();
+
+    if(isNewCalculation)
+        ui->Display->setText("0");
+
     QString displayVal = ui->Display->text();
+
     if ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)){
         ui->Display->setText(butVal);
     }
@@ -65,6 +69,8 @@ void Calculator::NumPressed(){
         double dblNewVal = newVal.toDouble();
         ui->Display->setText(QString::number(dblNewVal, 'g', 16));
     }
+
+    ui->historyTextEdit->setPlainText(ui->historyTextEdit->toPlainText() + butVal);
 }
 
 void Calculator::MathButtonPressed(){
@@ -77,14 +83,19 @@ void Calculator::MathButtonPressed(){
     calcVal = displayVal.toDouble();
     QPushButton *button = (QPushButton *)sender();
     QString butVal = button->text();
+
+
     if (QString::compare(butVal, "/", Qt::CaseInsensitive) == 0){
         divTrigger = true;
+        ui->historyTextEdit->setPlainText(ui->historyTextEdit->toPlainText() + "/");
     }
     else if (QString::compare(butVal, "*", Qt::CaseInsensitive) == 0){
         multTrigger = true;
+        ui->historyTextEdit->setPlainText(ui->historyTextEdit->toPlainText() + "*");
     }
     else if(QString::compare(butVal, "+", Qt::CaseInsensitive) == 0){
         addTrigger = true;
+        ui->historyTextEdit->setPlainText(ui->historyTextEdit->toPlainText() + "+");
     }
     else if(QString::compare(butVal, "!", Qt::CaseInsensitive) == 0){
         QString DisplayVal = ui->Display->text();
@@ -130,6 +141,9 @@ void Calculator::EqualButtonPressed(){
     }
 
     ui->Display->setText(QString::number(solution));
+    ui->historyTextEdit->appendPlainText(" = " + QString::number(solution));
+    ui->historyTextEdit->appendPlainText("");
+    isNewCalculation = true;
 }
 
 void Calculator::ChangeNumberSign(){
@@ -145,6 +159,7 @@ void Calculator::ChangeNumberSign(){
 
 void Calculator::ClearPressed(){
     ui->Display->setText(QString::number(0));
+    ui->historyTextEdit->clear();
 }
 
 

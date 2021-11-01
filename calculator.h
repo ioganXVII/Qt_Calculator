@@ -19,7 +19,7 @@ public:
 
 private:
     Ui::Calculator *ui;
-
+    bool isNewCalculation;
 
 private slots:
     void NumPressed();
