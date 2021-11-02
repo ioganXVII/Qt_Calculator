@@ -198,7 +198,7 @@ void Calculator::SetDarkModeStyle()
     ui->actionDark_Mode->setEnabled(false);
 
     // Styles for widgets
-    ui->centralwidget->setStyleSheet("background: #010206");
+    ui->centralwidget->setStyleSheet("background: #3B3B3B");
     ui->scrollAreaWidgetContents->setStyleSheet("background: #292929; "
                                                 "border-style: outset; "
                                                 "border-width: 0; ");
@@ -208,27 +208,27 @@ void Calculator::SetDarkModeStyle()
                                "background: #292929");
 
     // Styles for Number buttons
-    ui->Button0->setStyleSheet("background: #2400FF");
-    ui->Button1->setStyleSheet("background: #2400FF");
-    ui->Button2->setStyleSheet("background: #2400FF");
-    ui->Button3->setStyleSheet("background: #2400FF");
-    ui->Button4->setStyleSheet("background: #2400FF");
-    ui->Button5->setStyleSheet("background: #2400FF");
-    ui->Button6->setStyleSheet("background: #2400FF");
-    ui->Button7->setStyleSheet("background: #2400FF");
-    ui->Button8->setStyleSheet("background: #2400FF");
-    ui->Button9->setStyleSheet("background: #2400FF");
+    ui->Button0->setStyleSheet("background: #be89c9");
+    ui->Button1->setStyleSheet("background: #be89c9");
+    ui->Button2->setStyleSheet("background: #be89c9");
+    ui->Button3->setStyleSheet("background: #be89c9");
+    ui->Button4->setStyleSheet("background: #be89c9");
+    ui->Button5->setStyleSheet("background: #be89c9");
+    ui->Button6->setStyleSheet("background: #be89c9");
+    ui->Button7->setStyleSheet("background: #be89c9");
+    ui->Button8->setStyleSheet("background: #be89c9");
+    ui->Button9->setStyleSheet("background: #be89c9");
 
     // Styles for Sign buttons
-    ui->Add->setStyleSheet("background: #2400FF");
-    ui->ChangeSign->setStyleSheet("background: #2400FF");
-    ui->Clear->setStyleSheet("background: #2400FF");
-    ui->ClearHistory->setStyleSheet("background: #2400FF");
-    ui->Divide->setStyleSheet("background: #2400FF");
-    ui->Equals->setStyleSheet("background: #2400FF");
-    ui->Factorial->setStyleSheet("background: #2400FF");
-    ui->Multiply->setStyleSheet("background: #2400FF");
-    ui->Subtract->setStyleSheet("background: #2400FF");
+    ui->Add->setStyleSheet("background: #be89c9");
+    ui->ChangeSign->setStyleSheet("background: #be89c9");
+    ui->Clear->setStyleSheet("background: #be89c9");
+    ui->ClearHistory->setStyleSheet("background: #be89c9");
+    ui->Divide->setStyleSheet("background: #be89c9");
+    ui->Equals->setStyleSheet("background: #be89c9");
+    ui->Factorial->setStyleSheet("background: #be89c9");
+    ui->Multiply->setStyleSheet("background: #be89c9");
+    ui->Subtract->setStyleSheet("background: #be89c9");
 }
 
 void Calculator::SetLightModeStyle()
