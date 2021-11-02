@@ -19,7 +19,6 @@ public:
 
 private:
     Ui::Calculator *ui;
-    bool isNewCalculation;
 
 private slots:
     void NumPressed();
@@ -27,5 +26,6 @@ private slots:
     void EqualButtonPressed();
     void ChangeNumberSign();
     void ClearPressed();
+    void ClearHistoryPressed();
 };
 #endif // CALCULATOR_H

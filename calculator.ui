@@ -443,10 +443,27 @@ QPushButton::pressed{
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPlainTextEdit" name="historyTextEdit"/>
+       <widget class="QPlainTextEdit" name="History">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="ClearHistory">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>370</y>
+      <width>80</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear History</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -455,7 +472,7 @@ QPushButton::pressed{
      <x>0</x>
      <y>0</y>
      <width>633</width>
-     <height>28</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
