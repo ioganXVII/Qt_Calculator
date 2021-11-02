@@ -14,6 +14,7 @@ Calculator::Calculator(QWidget *parent)
     , ui(new Ui::Calculator)
 {
     ui->setupUi(this);
+    SetLightModeStyle();    // set default mode as light
 
     ui->Display->setText(QString::number(calcVal));
     QPushButton *numButtons[10];
@@ -45,7 +46,10 @@ Calculator::Calculator(QWidget *parent)
     connect(ui->ClearHistory, SIGNAL(released()), this,
             SLOT(ClearHistoryPressed()));
 
-
+    connect(ui->actionDark_Mode, SIGNAL(triggered()), this,
+            SLOT(SetDarkModeStyle()));
+    connect(ui->actionLight_Mode, SIGNAL(triggered()), this,
+            SLOT(SetLightModeStyle()));
 }
 
 Calculator::~Calculator()
@@ -188,6 +192,82 @@ void Calculator::ClearHistoryPressed(){
     ui->History->setPlainText("");
 }
 
+void Calculator::SetDarkModeStyle()
+{
+    ui->actionLight_Mode->setEnabled(true);
+    ui->actionDark_Mode->setEnabled(false);
 
+    // Styles for widgets
+    ui->centralwidget->setStyleSheet("background: #3B3B3B");
+    ui->scrollAreaWidgetContents->setStyleSheet("background: #292929; "
+                                                "border-style: outset; "
+                                                "border-width: 0; ");
+    // Styles for display screens
+    ui->History->setStyleSheet("color: #CCCCCC; ");
+    ui->Display->setStyleSheet("color: #CCCCCC; "
+                               "background: #292929");
 
+    // Styles for Number buttons
+    ui->Button0->setStyleSheet("background: #be89c9");
+    ui->Button1->setStyleSheet("background: #be89c9");
+    ui->Button2->setStyleSheet("background: #be89c9");
+    ui->Button3->setStyleSheet("background: #be89c9");
+    ui->Button4->setStyleSheet("background: #be89c9");
+    ui->Button5->setStyleSheet("background: #be89c9");
+    ui->Button6->setStyleSheet("background: #be89c9");
+    ui->Button7->setStyleSheet("background: #be89c9");
+    ui->Button8->setStyleSheet("background: #be89c9");
+    ui->Button9->setStyleSheet("background: #be89c9");
 
+    // Styles for Sign buttons
+    ui->Add->setStyleSheet("background: #be89c9");
+    ui->ChangeSign->setStyleSheet("background: #be89c9");
+    ui->Clear->setStyleSheet("background: #be89c9");
+    ui->ClearHistory->setStyleSheet("background: #be89c9");
+    ui->Divide->setStyleSheet("background: #be89c9");
+    ui->Equals->setStyleSheet("background: #be89c9");
+    ui->Factorial->setStyleSheet("background: #be89c9");
+    ui->Multiply->setStyleSheet("background: #be89c9");
+    ui->Subtract->setStyleSheet("background: #be89c9");
+}
+
+void Calculator::SetLightModeStyle()
+{
+    ui->actionLight_Mode->setEnabled(false);
+    ui->actionDark_Mode->setEnabled(true);
+
+    // Styles for widgets
+    ui->centralwidget->setStyleSheet("background: white");
+    ui->scrollAreaWidgetContents->setStyleSheet("background: white; "
+                                                "border-style: outset; "
+                                                "border-width: 0; ");
+
+    // Styles for display screens
+    ui->History->setStyleSheet("color: black");
+    ui->Display->setStyleSheet("color: black; "
+                               "background: white");
+
+    // Styles for Number buttons
+    ui->Button0->setStyleSheet("background: white");
+    ui->Button1->setStyleSheet("background: white");
+    ui->Button2->setStyleSheet("background: white");
+    ui->Button3->setStyleSheet("background: white");
+    ui->Button4->setStyleSheet("background: white");
+    ui->Button5->setStyleSheet("background: white");
+    ui->Button6->setStyleSheet("background: white");
+    ui->Button7->setStyleSheet("background: white");
+    ui->Button8->setStyleSheet("background: white");
+    ui->Button9->setStyleSheet("background: white");
+
+    // Styles for Sign buttons
+    ui->Add->setStyleSheet("background: white");
+    ui->ChangeSign->setStyleSheet("background: white");
+    ui->Clear->setStyleSheet("background: white");
+    ui->ClearHistory->setStyleSheet("background: white");
+    ui->Display->setStyleSheet("background: white");
+    ui->Divide->setStyleSheet("background: white");
+    ui->Equals->setStyleSheet("background: white");
+    ui->Factorial->setStyleSheet("background: white");
+    ui->Multiply->setStyleSheet("background: white");
+    ui->Subtract->setStyleSheet("background: white");
+}

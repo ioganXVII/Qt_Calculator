@@ -16,7 +16,6 @@ public:
     explicit Calculator(QWidget *parent = nullptr);
     ~Calculator();
 
-
 private:
     Ui::Calculator *ui;
 
@@ -27,5 +26,7 @@ private slots:
     void ChangeNumberSign();
     void ClearPressed();
     void ClearHistoryPressed();
+    void SetDarkModeStyle();
+    void SetLightModeStyle();
 };
 #endif // CALCULATOR_H
