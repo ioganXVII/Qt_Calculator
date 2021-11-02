@@ -20,12 +20,12 @@ public:
 private:
     Ui::Calculator *ui;
 
-
 private slots:
     void NumPressed();
     void MathButtonPressed();
     void EqualButtonPressed();
     void ChangeNumberSign();
     void ClearPressed();
+    void ClearHistoryPressed();
 };
 #endif // CALCULATOR_H

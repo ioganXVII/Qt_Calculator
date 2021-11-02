@@ -1,13 +1,13 @@
 #include "calculator.h"
 #include "ui_calculator.h"
-
 double calcVal = 0.0;
+double secVal = 0.0;
 bool divTrigger = false;
 bool multTrigger = false;
 bool addTrigger = false;
 bool subTrigger = false;
 bool factTrigger = false;
-
+bool isNewCalculation = false;
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
@@ -42,7 +42,8 @@ Calculator::Calculator(QWidget *parent)
             SLOT(ChangeNumberSign()));
     connect(ui->Clear, SIGNAL(released()), this,
             SLOT(ClearPressed()));
-
+    connect(ui->ClearHistory, SIGNAL(released()), this,
+            SLOT(ClearHistoryPressed()));
 
 
 }
@@ -56,7 +57,14 @@ Calculator::~Calculator()
 void Calculator::NumPressed(){
     QPushButton *button = (QPushButton *)sender();
     QString butVal = button->text();
+
+    if(isNewCalculation) {
+        ui->Display->setText("0");
+        isNewCalculation = false;
+    }
+
     QString displayVal = ui->Display->text();
+
     if ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)){
         ui->Display->setText(butVal);
     }
@@ -77,59 +85,88 @@ void Calculator::MathButtonPressed(){
     calcVal = displayVal.toDouble();
     QPushButton *button = (QPushButton *)sender();
     QString butVal = button->text();
+
+
     if (QString::compare(butVal, "/", Qt::CaseInsensitive) == 0){
         divTrigger = true;
+        ui->History->setPlainText(ui->History->toPlainText() + displayVal + " /");
     }
     else if (QString::compare(butVal, "*", Qt::CaseInsensitive) == 0){
         multTrigger = true;
+        ui->History->setPlainText(ui->History->toPlainText() + displayVal + " *");
     }
     else if(QString::compare(butVal, "+", Qt::CaseInsensitive) == 0){
         addTrigger = true;
+        ui->History->setPlainText(ui->History->toPlainText() + displayVal + " +");
     }
     else if(QString::compare(butVal, "!", Qt::CaseInsensitive) == 0){
         QString DisplayVal = ui->Display->text();
         double dblDisplayVal = DisplayVal.toDouble();
         double solution = 1;
-        if(ui->Display->text() == "INFINITY") return;
+        if(ui->Display->text() == "INFINITY") {
+            ui->History->setPlainText(ui->History->toPlainText() + DisplayVal + "!" + " = " + ui->Display->text() + "\n");
+            return;
+        }
 
         else if(dblDisplayVal > 170){
             ui->Display->setText("INFINITY");
+            ui->History->setPlainText(ui->History->toPlainText() + DisplayVal + "!" + " = " + ui->Display->text() + "\n");
             return;
         }
         else {
             for(int i = 1; i <= dblDisplayVal; ++i){
                 solution = solution * i;
             }
+
         }
         ui->Display->setText(QString::number(solution));
+        ui->History->setPlainText(ui->History->toPlainText() + DisplayVal + "!" + " = " + QString::number(solution) + "\n");
         return;
     }
     else {
         subTrigger = true;
     }
-    ui->Display->setText("");
+    ui->Display->setText("0");
 }
 
 void Calculator::EqualButtonPressed(){
-    double solution = 0.0;
     QString displayVal = ui->Display->text();
-    double dblDisplayVal = displayVal.toDouble();
+    if (!isNewCalculation) {
+        secVal = displayVal.toDouble();
+    }
+    else {
+        calcVal = displayVal.toDouble();
+    }
+    double solution = 0.0;
+
+    QString operation;
     if(addTrigger || subTrigger || multTrigger || divTrigger){
         if (addTrigger) {
-            solution = calcVal + dblDisplayVal;
+            solution = calcVal + secVal;
+            operation = "+";
         }
         else if (subTrigger) {
-            solution = calcVal - dblDisplayVal;
+            solution = calcVal - secVal;
+            operation = "-";
         }
         else if (multTrigger) {
-            solution = calcVal * dblDisplayVal;
+            solution = calcVal * secVal;
+            operation = "*";
         }
         else {
-            solution = calcVal / dblDisplayVal;
+            solution = calcVal / secVal;
+            operation = "/";
         }
     }
 
     ui->Display->setText(QString::number(solution));
+    if(!isNewCalculation){
+        ui->History->setPlainText(ui->History->toPlainText() + " " + QString::number(secVal) + " = " + QString::number(solution) + "\n");
+        isNewCalculation = true;
+    }
+    else {
+        ui->History->setPlainText(ui->History->toPlainText() + QString::number(calcVal) + " " + operation + " " + QString::number(secVal) + " = " + QString::number(solution) + "\n");
+    }
 }
 
 void Calculator::ChangeNumberSign(){
@@ -147,6 +184,9 @@ void Calculator::ClearPressed(){
     ui->Display->setText(QString::number(0));
 }
 
+void Calculator::ClearHistoryPressed(){
+    ui->History->setPlainText("");
+}
 
 
 
